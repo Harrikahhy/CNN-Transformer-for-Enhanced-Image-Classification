@@ -12,15 +12,25 @@ Comparative Analysis: Evaluation and comparison of the proposed model against ba
 plaintext
 
 ├── data/                        # Folder for dataset
+
 ├── models/
+
 │   └── cnn_transformer_model.py  # Model architecture
+
 ├── src/
+
 │   └── train.py                  # Training and evaluation script
+
 ├── outputs/
-│   ├── plots/                    # Accuracy/loss plots and confusion matrix
+
+│   ├── plots/       # Accuracy/loss plots and confusion matrix
+
 │   └── model_checkpoint.pth      # Trained model checkpoint
+
 ├── README.md                     # Project overview and setup instructions
+
 ├── requirements.txt              # Required Python packages
+
 └── report.pdf                    # Detailed project report with literature review, methodology, and analysis
 
 # Setup Instructions
@@ -35,14 +45,17 @@ Ensure that you have Python 3.7 or higher installed. The following packages are 
 # Install the required packages by running:
 
 #bash
-pip install -r requirements.txt
+pip install -r 
+requirements.txt
 
 # Dataset
 Place your dataset images in the data/ folder. You can use any standard dataset like (CIFAR-10), ImageNet, or a custom dataset for testing purposes.
 Ensure the dataset is organized in folders for each class, as follows:
 data/
 ├── class1/
+
 ├── class2/
+
 └── ...
 Training the Model
 To train the model, run:
@@ -133,6 +146,7 @@ The project is implemented in several steps simulating the essential data proces
 
 # bash
 python src/train.py --epochs 20 --batch_size 32 --learning_rate 0.001
+
 epochs: Number of training epochs (default 20).
 batch_size: Batch size for training (default 32).
 learning_rate: Learning rate for the optimizer (default 0.001).
@@ -151,6 +165,7 @@ The comparative analysis between baseline CNN and CNN + Transformer models can b
 
 # Sample Results
 Baseline CNN (MobileNet): 85% accuracy
+
 Proposed CNN + Transformer: 90% accuracy
 
 # Future Work
