@@ -1,0 +1,39 @@
+import torch
+import torch.nn as nn
+from torchvision import models
+
+class CNNTransformerModel(nn.Module):
+    def __init__(self, num_classes=10):
+        super(CNNTransformerModel, self).__init__()
+        # Load a pre-trained MobileNet model for initial feature extraction
+        self.cnn = models.mobilenet_v2(pretrained=True).features
+        self.transformer_layer = nn.Transformer(d_model=128, nhead=8, num_encoder_layers=2)
+        self.fc = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(128 * 7 * 7, 512),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(512, num_classes)
+        )
+
+    def forward(self, x):
+        x = self.cnn(x)  # Pass through CNN layers
+        x = x.view(x.shape[0], -1, 128)  # Reshape for transformer (batch, seq_len, feature_dim)
+        x = self.transformer_layer(x)
+        x = self.fc(x)  # Fully connected layer for classification
+        return x
+
+# Initialize model, loss, and optimizer
+model = CNNTransformerModel(num_classes=10)
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+
+# Sample training loop
+for epoch in range(num_epochs):
+    for images, labels in train_loader:
+        outputs = model(images)
+        loss = criterion(outputs, labels)
+        
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
